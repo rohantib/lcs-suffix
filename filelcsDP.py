@@ -58,7 +58,12 @@ for i in range(len(filenames)-1):
             print("ERROR: FILE '{}' DOES NOT EXIST.".format(name2))
         f2_len = os.path.getsize(name2)
         f2_data = (f2_len, name2, f2.read())
+        comp_start = time.time()
         lcs_len, lcs_offset = get_lcs_offsets(max(f1_data, f2_data), min(f1_data, f2_data))
+        comp_end = time.time()
+        print(lcs_offset, lcs_len)
+        print("Elapsed time for computation: {} seconds".format(comp_end - comp_start))
+        print()
         if lcs_len > 0:
             if lcs_len > maxlen:
                 maxlen = lcs_len

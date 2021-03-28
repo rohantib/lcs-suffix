@@ -173,8 +173,6 @@ else:
             offsets.append([filenames[cur_type], get_offset(sentinels, cur_type, suffs[cur_lcp_ind+1])])
         cur_lcp_ind += 1
 
-    # Print in lexicographic order of filenames
-    offsets.sort()
     for off in offsets:
         print("File name: {}, Offset where sequence begins: {}".format(off[0], off[1]))
 
