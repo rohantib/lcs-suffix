@@ -184,72 +184,7 @@ print("LCS Computation: {}".format(end - start))
 
 
 
-
-
-""" Old Code """
-
-# def suffix_array_ManberMyers(str):
-#     result = []
-#     def sort_bucket(str, bucket, order=1):
-#         d = defaultdict(list)
-#         for i in bucket:
-#             key = str[i:i+order]
-#             d[key].append(i)
-#         for k, v in sorted(d.items()):
-#             if len(v) > 1:
-#                 sort_bucket(str, v, order*2)
-#             else:
-#                 result.append(v[0])
-#         return result
-#     return sort_bucket(str, (i for i in range(len(str))))
-
-
-# class Suffix:
-#     def __init__(self):
-#         self.index = -1
-#         self.rank = [-1, -1]
-
-
-# def build_suffix_arr_class(string):
-#     length = len(string)
-
-#     suffs = [Suffix() for _ in range(length)]
-#     suff_cmp = lambda s: s.rank
-
-#     for i in range(length):
-#         suffs[i].index = i
-#         suffs[i].rank[0] = string[i]
-#         suffs[i].rank[1] = string[i+1] if i < length-1 else -1
-
-#     suffs.sort(key=suff_cmp)
-
-#     k = 4
-#     inds = [0] * length
-#     while k <= length:
-#         curr_rank = 0
-#         prev_rank = suffs[0].rank[0]
-#         suffs[0].rank[0] = curr_rank
-#         inds[suffs[0].index] = 0
-
-#         for i in range(1, length):
-#             if suffs[i].rank[0] == prev_rank and suffs[i].rank[1] == suffs[i-1].rank[1]:
-#                 suffs[i].rank[0] = curr_rank
-#             else:
-#                 prev_rank = suffs[i].rank[0]
-#                 curr_rank += 1
-#                 suffs[i].rank[0] = curr_rank
-#             inds[suffs[i].index] = i
-
-#         for i in range(length):
-#             next_ind = suffs[i].index + k//2
-#             suffs[i].rank[1] = suffs[inds[next_ind]].rank[0] if next_ind < length else -1
-
-#         suffs.sort(key=suff_cmp)
-#         # print(suffs[-1].rank[0])
-#         k *= 2
-
-#     return [s.index for s in suffs]
-
+# Attempt at utilizing radix sort
 
 # def counting_sort_ranks(arr, sort_ind):
 #     largest = max(arr, key=lambda e: e[sort_ind])
@@ -313,44 +248,3 @@ print("LCS Computation: {}".format(end - start))
         
 #     return [s[2] for s in suffs]
 
-
-# start = time.time()
-# suff_arr1 = suffix_array_ManberMyers(string_nums)
-# end = time.time()
-# print("Method 1 with dict took {}".format(end - start))
-
-
-# start = time.time()
-# suff_arr2 = build_suffix_arr_class(string)
-# end = time.time()
-# print("Method 2 with class took {}".format(end - start))
-
-# start = time.time()
-# suff_arr3, lcp = build_suffix_arr(string_nums)
-# end = time.time()
-# print("Method 3 with 3-elem arr took {}".format(end - start))
-
-# start = time.time()
-# suff_arr4 = build_suffix_arr_radix(string)
-# end = time.time()
-# print("Method 4 with 3-elem arr radix sort took {}".format(end - start))
-
-# start = time.time()
-# suff_arr5 = sorted(range(len(string)), key=lambda i: string[i:])
-# end = time.time()
-# print("Method 5 with naive sort arr took {}".format(end - start))
-
-# print("Method 1 == Method 2: {}".format(suff_arr1 == suff_arr2))
-# print("Method 1 == Method 3: {}".format(suff_arr1 == suff_arr3))
-# print("Method 3 == Method 4: {}".format(suff_arr3 == suff_arr4))
-# print("Method 3 == Method 5: {}".format(suff_arr3 == suff_arr5))
-
-
-# test_str = b"allflksdjffaksdljf;alsdkjfa;sldfasdfklhasldfhaslj;;ladsjlaks fjwioefpwoaeupsadkl;fajsopiwea;klsk;ljsdl;jksdfjla;lkjsda90344893045ifkjladf"
-# suffs = build_suffix_arr(test_str)
-# lcp1 = compute_lcp_arr(test_str, suffs) + [" "]
-# lcp2 = brute_force_lcp_arr(test_str, suffs) + [" "]
-# rank = compute_rank(suffs)
-# print("lcp1 == lcp2: " + str(lcp1 == lcp2))
-# for i in range(len(suffs)):
-#     print(lcp1[i], lcp2[i], rank[i], suffs[i], test_str[suffs[i]:],)
