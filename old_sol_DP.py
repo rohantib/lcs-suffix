@@ -1,6 +1,6 @@
 import sys
 import os
-import time
+# import time
 
 # Reference DP Solution
 
@@ -35,7 +35,7 @@ def get_lcs_offsets(f1_data, f2_data):
     return maxlen, [min(offset_1, offset_2), max(offset_1, offset_2)]
 
 
-start = time.time()
+# start = time.time()
 
 filenames = sys.argv[1:]
 
@@ -58,13 +58,13 @@ for i in range(len(filenames)-1):
             print("ERROR: FILE '{}' DOES NOT EXIST.".format(name2))
         f2_len = os.path.getsize(name2)
         f2_data = (f2_len, name2, f2.read())
-        print(name1, name2)
-        comp_start = time.time()
+        # print(name1, name2)
+        # comp_start = time.time()
         lcs_len, lcs_offset = get_lcs_offsets(max(f1_data, f2_data), min(f1_data, f2_data))
-        comp_end = time.time()
-        print(lcs_offset, lcs_len)
-        print("Elapsed time for computation: {} seconds".format(comp_end - comp_start))
-        print()
+        # comp_end = time.time()
+        # print(lcs_offset, lcs_len)
+        # print("Elapsed time for computation: {} seconds".format(comp_end - comp_start))
+        # print()
         if lcs_len > 0:
             if lcs_len > maxlen:
                 maxlen = lcs_len
@@ -78,6 +78,6 @@ print("Length of longest shared strand of bytes: {}".format(maxlen))
 for off in offsets:
     print("File name: {}, Offset where sequence begins: {}".format(off[0], off[1]))
 
-end = time.time()
-print()
-print("DP Computation: {} seconds".format(end - start))
+# end = time.time()
+# print()
+# print("DP Computation: {} seconds".format(end - start))
